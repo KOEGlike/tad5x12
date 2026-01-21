@@ -1,0 +1,7 @@
+#define DAC_IF_FORMAT_I2S 1
+#define DAC_IF_FORMAT_LEFT_JUSTIFIED 2
+
+#define WORDLEN_16 0
+#define WORDLEN_20 1
+#define WORDLEN_24 2
+#define WORDLEN_32 3

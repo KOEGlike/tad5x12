@@ -1,0 +1,1 @@
+add_subdirectory_ifdef(CONFIG_AUDIO_CODEC_TAD5X12 tad5x12)
