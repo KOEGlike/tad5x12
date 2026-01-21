@@ -1,0 +1,2 @@
+zephyr_library_named(tad5x12)
+add_subdirectory(drivers/tad5x12)
