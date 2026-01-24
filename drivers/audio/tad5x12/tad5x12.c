@@ -17,6 +17,28 @@ struct tad5x12_config
     struct i2c_dt_spec i2c;
 };
 
+#define tad5x12_write(_i2c, _reg, _value) \
+    tad5x12_write_masked(_i2c, _reg, _value, 0xff)
+
+static inline int tad5x12_write_masked(const struct i2c_dt_spec *i2c, uint8_t reg, uint8_t value, uint8_t mask)
+{
+    int ret;
+    uint8_t actual_value = 0;
+
+    if (mask != 0xff)
+    {
+        ret = i2c_burst_read_dt(i2c, reg, &actual_value, 1);
+        if (ret)
+        {
+            LOG_ERR("Unable to get actual register value [%02X]", reg);
+            return ret;
+        }
+    }
+    actual_value = (actual_value & ~mask) | (value & mask);
+
+    return i2c_burst_write_dt(i2c, reg, &actual_value, 1);
+}
+
 static int tad5x12_configure(const const struct device *dev, struct audio_codec_cfg *audiocfg)
 {
     uint8_t format, wordlen;
